@@ -25,7 +25,14 @@ SECRET_KEY = 's803)0dv-v$o2zfk5rp%qr304j3j^2@n&x7pmds=h!_(kk4=$5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# PREPEND_WWW = True
+# BASE_URL = "https://www.mysite.com"
+
+ALLOWED_HOSTS = ['mysite.com', 'localhost', 'localhost.com', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +133,17 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+SOCIAL_AUTH_FACEBOOK_KEY = '422038225104669'
+SOCIAL_AUTH_FACEBOOK_SECRET = '6f45fb28a915e6ff3826aa1d943d6c6d'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+]
